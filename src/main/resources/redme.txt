@@ -1,0 +1,68 @@
+1. **Project Overview**: This appears to be a Spring Boot application for handling NSE (National Stock Exchange) data. The project is built with:
+
+- Java 17
+- Spring Boot 3.4.4
+- PostgreSQL as the database
+- JPA for data persistence
+- Swagger/OpenAPI for API documentation
+- Lombok for reducing boilerplate code
+
+1. **Main Components**:
+
+a) **Controllers**:
+- : REST endpoints for symbol management with CRUD operations
+    - GET `/symbols` - retrieve all symbols
+    - POST `/symbols` - create new symbol
+    - GET `/symbols/{id}` - get symbol by ID
+    - GET `/symbols/symbol/{symbol}` - get symbol by symbol name
+
+`SymbolController`
+
+b) **Services**:
+- : Handles stock price related operations
+    - Fetching prices for a symbol within a time range
+    - Getting latest price for a symbol
+    - Batch saving of price data
+
+`StockPriceService`
+
+c) **Repositories**:
+- : JPA repository for handling interval data `IntervalRepository`
+- : (referenced in code) Handles 1-minute interval stock price data `StockPrice1MinRepository`
+
+1. **Entity Structure**:
+
+- `Symbol`: Entity for stock symbols
+- `Interval`: Entity for time intervals
+- : Entity for 1-minute stock price data `StockPrice1Min`
+
+1. **Dependencies**:
+
+Key dependencies include:
+- spring-boot-starter-web
+- spring-boot-starter-data-jpa
+- springdoc-openapi-starter-webmvc-ui (v2.1.0)
+- postgresql (v42.6.0)
+- lombok (v1.18.38)
+- json (v20250107)
+
+
+1. **Architecture**: The project follows a typical Spring Boot layered architecture:
+
+- Controller Layer (REST APIs)
+- Service Layer (Business Logic)
+- Repository Layer (Data Access)
+- Entity Layer (Data Models)
+
+1. **API Documentation**: The project includes SpringDoc OpenAPI, which means you can access the API documentation at `/swagger-ui.html` when running the application.
+
+Recommendations:
+1. Consider adding proper exception handling using `@ControllerAdvice`
+2. Add validation for the input data using Bean Validation (`@Valid`)
+3. Consider adding caching for frequently accessed data
+4. Add logging for better monitoring and debugging
+5. Consider adding security measures (Spring Security) if not already implemented
+6. Add unit tests and integration tests
+7. Consider implementing rate limiting for API endpoints
+
+
